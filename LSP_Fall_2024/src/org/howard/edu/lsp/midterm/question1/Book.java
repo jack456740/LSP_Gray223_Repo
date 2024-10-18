@@ -11,22 +11,12 @@ public class Book {
         this.yearPublished = yearPublished;
     }
 
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public String getISBN() { return ISBN; }
-    public int getYearPublished() { return yearPublished; }
-
-    public void setTitle(String title) { this.title = title; }
-    public void setAuthor(String author) { this.author = author; }
-    public void setISBN(String ISBN) { this.ISBN = ISBN; }
-    public void setYearPublished(int yearPublished) { this.yearPublished = yearPublished; }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!(obj instanceof Book)) return false;
         Book other = (Book) obj;
-        return ISBN.equals(other.ISBN) && author.equals(other.author);
+        return this.ISBN.equals(other.ISBN) && this.author.equals(other.author);
     }
 
     @Override
