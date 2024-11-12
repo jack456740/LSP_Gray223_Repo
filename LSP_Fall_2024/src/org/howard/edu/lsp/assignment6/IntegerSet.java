@@ -1,3 +1,4 @@
+// File: IntegerSet.java
 package org.howard.edu.lsp.assignment6;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
  * It uses an ArrayList to store the elements of the set.
  */
 public class IntegerSet {
-    // Store the set elements in an unmodifiable ArrayList for immutability.
+    // Store the set elements in a List.
     private final List<Integer> set;
 
     // Default Constructor
@@ -28,8 +29,7 @@ public class IntegerSet {
      * @param set an ArrayList of integers to initialize the set.
      */
     public IntegerSet(ArrayList<Integer> set) {
-        // Defensive copy to ensure immutability of the provided list
-        this.set = new ArrayList<>(set);
+        this.set = new ArrayList<>(set); // Defensive copy
     }
 
     /**
@@ -52,16 +52,11 @@ public class IntegerSet {
      * Checks if two sets are equal. Two sets are considered equal if they have the
      * same elements regardless of the order.
      * 
-     * @param o an object to compare with this set.
+     * @param b the other IntegerSet to compare with this set.
      * @return true if the sets are equal, false otherwise.
      */
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof IntegerSet)) {
-            return false;
-        }
-        IntegerSet otherSet = (IntegerSet) o;
-        return set.containsAll(otherSet.set) && otherSet.set.containsAll(set);
+    public boolean equals(IntegerSet b) {
+        return set.containsAll(b.set) && b.set.containsAll(set);
     }
 
     /**
@@ -78,11 +73,11 @@ public class IntegerSet {
      * Returns the largest element in the set.
      * 
      * @return the largest integer in the set.
-     * @throws Exception if the set is empty.
+     * @throws IntegerSetException if the set is empty.
      */
-    public int largest() throws Exception {
+    public int largest() throws IntegerSetException {
         if (set.isEmpty()) {
-            throw new Exception("Set is empty");
+            throw new IntegerSetException("Set is empty, cannot find largest element.");
         }
         return Collections.max(set);
     }
@@ -91,11 +86,11 @@ public class IntegerSet {
      * Returns the smallest element in the set.
      * 
      * @return the smallest integer in the set.
-     * @throws Exception if the set is empty.
+     * @throws IntegerSetException if the set is empty.
      */
-    public int smallest() throws Exception {
+    public int smallest() throws IntegerSetException {
         if (set.isEmpty()) {
-            throw new Exception("Set is empty");
+            throw new IntegerSetException("Set is empty, cannot find smallest element.");
         }
         return Collections.min(set);
     }
@@ -129,7 +124,7 @@ public class IntegerSet {
     public void union(IntegerSet intSetb) {
         HashSet<Integer> tempSet = new HashSet<>(set);
         for (int item : intSetb.set) {
-            if (tempSet.add(item)) { // Only adds if the item is unique
+            if (tempSet.add(item)) {
                 set.add(item);
             }
         }
